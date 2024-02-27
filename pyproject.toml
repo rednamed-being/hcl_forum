@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "py-sand"
+version = "0.1.0"
+description = ""
+authors = ["h"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+bs4 = "^0.0.2"
+pywebcopy = "^7.0.2"
+
+[tool.poetry.group.dev.dependencies]
+requests = "^2.31.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
