@@ -55,10 +55,11 @@ def search_posts(html: str):
     post_datas = []
     for post in posts:
         id = post.get("id")
-        name = [content.text for content in post.select_one(".handle-name").contents]
-        timestamp = [content.text for content in post.select_one(".timestamp").contents]
+        name = [content.text for content in post.select_one(".handle-name").contents][0]
+        timestamp = [content.text for content in post.select_one(".timestamp").contents][0]
         body = [content.text for content in post.select_one(".post-body").contents]
         post_data = {"id": id, "name": name, "timestamp": timestamp, "body": body}
+        post_data = f"id: {id}	投稿者:{name}	投稿日時: {timestamp[2:].strip()}	{''.join(body)}"
         post_datas.append(post_data)
     return title, post_datas
 
@@ -76,8 +77,8 @@ def analize_html(url, root_url):
     links = enum_links(html, url)
     if re.search(r"[0-9][0-9]/$", url):
         title, posts = search_posts(html)
-        with open(f"./posts/{title}.json", "w") as f:
-            json.dump(posts, f, indent=2, ensure_ascii=False)
+        with open(f"./posts/{title}", "w") as f:
+            f.write("\n".join(posts))
 
     for link_url in links:
         if link_url.find(root_url) != 0:
