@@ -51,6 +51,9 @@ def search_posts(html: str):
     soup = BeautifulSoup(html, "html.parser")
     title = soup.select(".thread-title")[0].contents[0]
 
+    if "⍰" in title:
+        title = "⍰⍰⍰⍰⍰⍰⍰⍰⍰⍰⍰⍰⍰⍰⍰⍰⍰⍰"
+
     posts = soup.select("li.post")
     post_datas = []
     for post in posts:
