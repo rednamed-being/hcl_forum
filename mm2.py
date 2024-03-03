@@ -51,9 +51,6 @@ def search_posts(html: str):
     soup = BeautifulSoup(html, "html.parser")
     title = soup.select(".thread-title")[0].contents[0]
 
-    if "⍰" in title:
-        title = "バグスレ"
-
     posts = soup.select("li.post")
     post_datas = []
     for post in posts:
@@ -78,7 +75,7 @@ def analize_html(url, root_url):
 
     html = open(savepath, "r", encoding="utf-8").read()
     links = enum_links(html, url)
-    if re.search(r"[0-9][0-9]/$", url):
+    if "topic-" in url:
         title, posts = search_posts(html)
         with open(f"./posts/{title}", "w") as f:
             f.write("\n".join(posts))
